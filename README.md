@@ -174,7 +174,9 @@ Below are the general steps to complete the exercise.
 
 1.  Similar to using `require('jsupm_grove')` to include the JavaScript UPM library for the basic Grove components, **include the UPM library for I<sup>2</sup>C-type LCDs**:
 
-    `var LCD = require('jsupm_i2clcd');`
+    ``` js
+    var LCD = require('jsupm_i2clcd');
+    ```
 
 2.  The specific LCD you have is the **JHD1313M1** Grove RBG LCD. **Instantiate a new `LCD.Jhd1313m1` object.** The constructor accepts 3 parameters in this order:
 
@@ -212,7 +214,42 @@ Below are the general steps to complete the exercise.
 
 6.  Below is an example of the final solution.
 
-    ``` js var mraa = require("mraa"); mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0"); // Include the JavaScript UPM libraries var groveSensor = require('jsupm_grove'); var LCD = require("jsupm_i2clcd"); // Create a new instance of a Grove RGB LCD screen // The Offset is necessary for Firmata var OFFSET = 512; // Instantiate the temperature sensor and LCD actuator var temp = new groveSensor.GroveTemp(0+OFFSET, 0.66); // Create a new instance of a Grove Temperature Sensor var screen = new LCD.Jhd1313m1(0+OFFSET, 0x3E, 0x62); // monitor - creates an anonymous function that runs once per second // The function will get the temperature and display it on the LCD. function monitor() { setInterval( function() { // Read the temperature sensor var celsius = temp.value(); // Convert it to fahrenheit var fahrenheit = Math.round(celsius * 9.0 / 5.0 + 32.0); // Log it to the console window console.log(celsius + "° Celsius, or " + fahrenheit + "° Fahrenheit"); // Update the LCD screen screen.setCursor(0, 0); screen.setColor(255, 255, 255); screen.write("Temp: " + celsius + "C or " + fahrenheit + "F"); }, 1000); } // Call the monitor function once monitor(); ```
+    ``` js
+
+    var mraa = require("mraa");
+    mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0");
+
+    // Include the JavaScript UPM libraries
+    var groveSensor = require('jsupm_grove');
+    var LCD = require("jsupm_i2clcd");
+
+    // Create a new instance of a Grove RGB LCD screen
+    // The Offset is necessary for Firmata
+    var OFFSET = 512;
+
+    // Instantiate the temperature sensor and LCD actuator
+    var temp = new groveSensor.GroveTemp(0 + OFFSET, 0.66);
+
+    // Create a new instance of a Grove Temperature Sensor
+    var screen = new LCD.Jhd1313m1(0 + OFFSET, 0x3E, 0x62);
+
+    // monitor - creates an anonymous function that runs once per second
+    // The function will get the temperature and display it on the LCD.
+    function monitor() {
+        setInterval(function() { // Read the temperature sensor
+            var celsius = temp.value(); // Convert it to fahrenheit
+            var fahrenheit = Math.round(celsius * 9.0 / 5.0 + 32.0); // Log it to the console window
+            console.log(celsius + "° Celsius, or " + fahrenheit + "° Fahrenheit");
+            // Update the LCD screen
+            screen.setCursor(0, 0);
+            screen.setColor(255, 255, 255);
+            screen.write("Temp: " + celsius + "C or " + fahrenheit + "F");
+        }, 1000);
+    }
+
+    // Call the monitor function once
+    monitor();
+     ```
 
 ## Deploy the temperature sensor application
 
