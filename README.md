@@ -259,7 +259,7 @@ Run your application from ssh terminal of your Intel® IoT Gateway by going to t
 
 You should now see the temperature displayed on the LCD.
 
-## Sample Exercises">
+## Sample Exercises
 
 **Exercise 1: Alarm Clock**
 
@@ -271,7 +271,7 @@ Take a look at the javascript [earthquake detector](https://github.com/intel-iot
 
 There are a number of additional examples available for reference as [how-to-code-samples](https://github.com/intel-iot-devkit/how-to-code-samples) on git hub
 
-## Additional resources">
+## Additional resources
 
 Information, community forums, articles, tutorials and more can be found at the [Intel Developer Zone](https://software.intel.com/iot).
 
