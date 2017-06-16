@@ -1,0 +1,28 @@
+{
+  "name": "lab-sensors-javascript",
+  "version": "1.0.0",
+  "description": "A program to read a temperature sensor and display it on an LCD using libmraa and libupm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSG-DRD-IOT/lab-sensors-javascript.git"
+  },
+  "keywords": [
+    "upm",
+    "mraa",
+    "sensor",
+    "actuator",
+    "iot",
+    "arduino",
+    "intel"
+  ],
+  "author": "Daniel Holmlund",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SSG-DRD-IOT/lab-sensors-javascript/issues"
+  },
+  "homepage": "https://github.com/SSG-DRD-IOT/lab-sensors-javascript#readme"
+}
