@@ -22,39 +22,43 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+////////////////////////////////////////////////////////////////////////////////
+// ISTV Block
+// First, we include both the MRAA and UPM libraries
+////////////////////////////////////////////////////////////////////////////////
 var mraa = require("mraa");
-mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM0");
+var upm = require('jsupm_grove'); // Temperature
+var LCD = require("jsupm_i2clcd"); // LCD
+// End ISTV Block
 
-// Include the JavaScript UPM libraries
-var groveSensor = require('jsupm_grove');
-var LCD = require("jsupm_i2clcd"); // Create a new instance of a Grove RGB LCD screen
-
-// The Offset is necessary for Firmata
+////////////////////////////////////////////////////////////////////////////////
+// ISTV Block
+// Next, the Arduino is connected to the IoT Gateway over a serial connection
+// Specify the serial port and that we will use Firmata to communicate to it.
+// A 512 offset is required for the pin numbers when using Firmata.
+////////////////////////////////////////////////////////////////////////////////
 var OFFSET = 512;
+var PIN = 1
+mraa.addSubplatform(mraa.GENERIC_FIRMATA, "/dev/ttyACM1");
+// End ISTV Block
 
-// Instantiate the temperature sensor and LCD actuator
-var temp = new groveSensor.GroveTemp(0 + OFFSET, 0.6); // Create a new instance of a Grove Temperature Sensor
+////////////////////////////////////////////////////////////////////////////////
+// ISTV Block
+// Now, instantiate temperature sensor and LCD
+////////////////////////////////////////////////////////////////////////////////
+var temp = new upm.GroveTemp(PIN + OFFSET, 0.6);
 var screen = new LCD.Jhd1313m1(0 + OFFSET, 0x3E, 0x62);
+// End ISTV Block
 
-// monitor - creates an anonymous function that runs once per second
-// The function will get the temperature and display it on the LCD.
-function monitor() {
-  setInterval(function() {
-    // Read the temperature sensor
-    var celsius = temp.value();
-
-    // Convert it to fahrenheit
-    var fahrenheit = Math.round(celsius * 9.0 / 5.0 + 32.0);
-
-    // Log it to the console window
-    console.log(celsius + "° Celsius, or " + fahrenheit + "° Fahrenheit");
-
-    // Update the LCD screen
-    screen.setCursor(0, 0);
-    screen.setColor(255, 255, 255);
-    screen.write("Temp: " + celsius + "C or " + fahrenheit + "F");
-  }, 1000);
-}
-
-// Call the monitor function once
-monitor();
+////////////////////////////////////////////////////////////////////////////////
+// ISTV Block
+// Lastly, use the setInterval function to call a function that will once per
+// second get the temperature, print it to the console and display it on the LCD.
+////////////////////////////////////////////////////////////////////////////////
+setInterval(function() {
+  var celsius = temp.value();
+  console.log(celsius + "C");
+  screen.setCursor(0, 0);
+  screen.write(celsius + "C");
+}, 1000);
+// End ISTV Block
